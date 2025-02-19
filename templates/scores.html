@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title%} Scores {% endblock title %}
+
+{% block body %}
+
+    {% include 'user_navbar.html' %}
+
+    <section class="pb-4">
+        <div class="container mt-2 pt-2">
+            <div class="container text-center">
+                <!-- first row of card starts here -->
+                <div class="row mt-3">
+                    <div class="col-12 col-md-8 m-auto">
+                        <div class="card border-1 shadow">
+                            <div class="card-body">
+                                <table class="table">
+                                    <h3 class="mb-4">Quiz Scores</h3>
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">No. of Questions</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Score</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>10</td>
+                                            <td>10-03-2025</td>
+                                            <td>20/25</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>12</td>
+                                            <td>12-03-2025</td>
+                                            <td>29/30</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- first row of card ends here  -->  
+            </div>
+        </div>
+    </section>
+    
+
+
+
+{% endblock body %}

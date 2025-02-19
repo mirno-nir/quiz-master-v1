@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %} New Question {% endblock title %}
+
+{% block body %}
+
+<section>
+    <container>
+        <div class="container mt-5 pt-5 pb-4 mb-5">
+            <div class="row">
+                <div class="col-12 col-md-8 m-auto">
+                    <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
+                    <div class="card border-1 shadow">
+                        <div class="card-body">
+                            <form action="/quiz_mgmt" method="GET">
+                                <h2 class="mb-4 text-center">Add New Question</h2>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Enter Chapter ID here">
+                                    <label for="floatingInput">Chapter ID</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Enter Question Title here">
+                                    <label for="floatingInput">Question Title</label>
+                                </div>
+                                <div class="card border-1 card-body mb-3">
+                                    <div class="form-floating mb-1">
+                                        <textarea class="form-control" placeholder="Enter Subject descripttion here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">Question Statement</label>
+                                    </div>
+                                    <div class="card-body mt-2">
+                                        <h6 class="mb-4">Enter Single Correct Options:</h6>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Option (1)">
+                                            <label for="floatingInput">Option (1)</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Option (2)">
+                                            <label for="floatingInput">Option (2)</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Option (3)">
+                                            <label for="floatingInput">Option (3)</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Option (4)">
+                                            <label for="floatingInput">Option (4)</label>
+                                        </div>
+                                        <div class="form-floating mt-5 mb-3 text-success">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Correct option:">
+                                            <label for="floatingInput">Correct option:</label>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-lg btn-danger mt-3" formmethod="GET">Cancel</button>
+                                    <button type="submit" class="btn btn-lg btn-primary mt-3" formaction="/new_question" formmethod="POST">Save & next</button>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>                
+        </div>
+    </container>
+</section>
+
+
+{% endblock body %}

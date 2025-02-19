@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %} Admin Dashboard {% endblock title %}
+
+{% block body %}
+
+
+    {% include 'admin_navbar.html' %}
+
+    <section class="pb-4">
+        <div class="container mt-2 pt-2">
+            <div class="container text-center">
+                <!-- first row of card starts here -->
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card border-1 shadow">
+                            <div class="card-body">
+                                <h3 class="center pb-2">Physics</h3>
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Chapter Name</th>
+                                        <th scope="col">No. of Questions</th>
+                                        <th scope="col">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>Force</td>
+                                        <td>10</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">2</th>
+                                        <td>EMF</td>
+                                        <td>12</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <form action="/new_chapter" method="GET">
+                                    <button class="btn btn-info"><strong>+ Add Chapter</strong></button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card border-1 shadow">
+                            <div class="card-body">
+                                <h3 class="center pb-2">App Dev-I</h3>
+                                <table class="table ">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Chapter Name</th>
+                                        <th scope="col">No. of Questions</th>
+                                        <th scope="col">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>HTML</td>
+                                        <td>10</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">2</th>
+                                        <td>CSS</td>
+                                        <td>12</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <form action="/new_chapter" method="GET">
+                                    <button class="btn btn-info"><strong>+ Add Chapter</strong></button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- first row of card ends here  -->  
+            </div>
+        </div>
+    </section>
+    <div class="container text-center">
+        <form action="/new_subject" method="GET">
+            <button class="btn btn-success btn-lg" type="submit" value="submit"><strong>+ Add Subject</strong></button>
+        </form>
+    </div>
+
+    
+{% endblock body %}

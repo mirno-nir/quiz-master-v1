@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} New Chapter {% endblock title %}
+
+{% block body %}
+
+<section>
+    <container>
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-12 col-md-6 m-auto">
+                    <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
+                    <div class="card border-1 shadow">
+                        <div class="card-body">
+                            <form action="/admin_dashboard" method="GET">
+                                <h2 class="mb-4 text-center">Add new Chapter</h2>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Enter Chapter name here">
+                                    <label for="floatingInput">Chapter Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" placeholder="Enter Chapter descripttion here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">Chapter Description</label>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-lg btn-danger mt-3">Cancel</button>
+                                    <button type="submit" class="btn btn-lg btn-primary mt-3" formmethod="POST">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>                        
+                </div>
+            </div>                
+        </div>
+    </container>
+</section>
+
+{% endblock body %}

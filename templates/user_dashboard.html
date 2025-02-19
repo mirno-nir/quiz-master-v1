@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title%} User Dashboard {% endblock title %}
+
+{% block body %}
+
+    {% include 'user_navbar.html' %}
+
+    <section class="pb-4">
+        <div class="container mt-2 pt-2">
+            <div class="container text-center">
+                <!-- first row of card starts here -->
+                <div class="row mt-3">
+                    <div class="col-12 col-md-8 m-auto">
+                        <div class="card border-1 shadow">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">No. of Questions</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Duration</th>
+                                        <th scope="col">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>10</td>
+                                            <td>10-03-2025</td>
+                                            <td>90</td>
+                                            <td>
+                                                <form action="/user_dashboard" method="GET">
+                                                    <button class="btn btn-info" formaction="/view_quiz" formmethod="GET"><strong>View</strong></button>
+                                                    <button class="btn btn-warning" formaction="/start_quiz" formmethod="GET"><strong>Start</strong></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>12</td>
+                                            <td>12-03-2025</td>
+                                            <td>60</td>
+                                            <td>
+                                                <form action="/user_dashboard" method="GET">
+                                                    <button class="btn btn-info" formaction="/view_quiz" formmethod="GET"><strong>View</strong></button>
+                                                    <button class="btn btn-warning" formaction="/start_quiz" formmethod="GET"><strong>Start</strong></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- first row of card ends here  -->  
+            </div>
+        </div>
+    </section>
+    
+
+
+
+{% endblock body %}

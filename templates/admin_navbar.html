@@ -1,0 +1,31 @@
+<section>
+    <h1 class="mt-2 pt-2 pb-2 text-center"><strong>Welcome to Quiz Master</strong></h1>
+</section>
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top border-bottom border-body">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/admin_dashboard" style="color: blueviolet;"> Welcome Admin </a>    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/admin_dashboard"><b>Home</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/quiz_mgmt"><b>Quiz</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/summary_admin"><b>Summary</b></a>
+                </li>
+            </ul>
+            <form class="d-flex me-auto" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <form action="/login" method="GET">
+                <button class="btn btn-danger" formmethod="POST" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>

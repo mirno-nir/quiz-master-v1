@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Register User {% endblock title %}
+
+{% block body %}
+    <section>
+        <container>
+            <div class="container mt-5 pt-5">
+                <div class="row">
+                    <div class="col-12 col-md-6 m-auto">
+                        <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
+                        <div class="card border-1 shadow">
+                            <div class="card-body">
+                                <form action="/register" method="GET">
+                                    <h2 class="mb-4 text-center">Register</h2>
+                                    <div class="form-floating mb-3">
+                                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                        <label for="floatingInput">Email address (Username)</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                        <label for="floatingPassword">Set your password</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Full Name">
+                                        <label>Full Name</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Qualification">
+                                        <label for="floatingInput">Qualification</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Date of Birth (DD-MM-YYYY)">
+                                        <label for="floatingInput">Date of Birth (DD-MM-YYYY)</label>
+                                    </div>
+                                    <div class="d-grid gap-2 text-center">
+                                        <button type="submit" class="btn btn-lg btn-primary btn-block mt-3" formmethod="POST">Register</button>
+                                        <p class="mt-4">Existing User?<strong>
+                                        <p><strong><a href="/login">Login here</a></strong></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>                
+            </div>
+        </container>
+    </section>
+
+{% endblock body %}

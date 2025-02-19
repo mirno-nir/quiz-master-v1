@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %} Quiz Management {% endblock title %}
+
+{% block body %}
+
+
+    {% include 'admin_navbar.html' %}
+
+    <section class="pb-4">
+        <div class="container mt-2 pt-2">
+            <div class="container text-center">
+                <!-- first row of card starts here -->
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card border-1 shadow">
+                            <div class="card-body">
+                                <h3 class="center pb-2">Quiz-1 (CSS)</h3>
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Question Title</th>
+                                        <th scope="col">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>Classes</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">2</th>
+                                        <td>Internal Styles</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <form action="/new_question" method="GET">
+                                    <button class="btn btn-info"><strong>+ Add Question</strong></button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card border-1 shadow">
+                            <div class="card-body">
+                                <h3 class="center pb-2">Quiz-1 (CSS)</h3>
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Question Title</th>
+                                        <th scope="col">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>Classes</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">2</th>
+                                        <td>Internal Styles</td>
+                                        <td>
+                                            <a href="chapter/edit">Edit</a>
+                                            <a href="chapter/delete">Delete</a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <form action="/new_question" method="GET">
+                                    <button class="btn btn-info"><strong>+ Add Question</strong></button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- first row of card ends here  -->  
+            </div>
+        </div>
+    </section>
+    <div class="container text-center">
+        <form action="/add_quiz" method="GET">
+            <button class="btn btn-success btn-lg" type="submit" value="submit"><strong>+ Add Quiz</strong></button>
+        </form>
+    </div>
+
+    
+{% endblock body %}
