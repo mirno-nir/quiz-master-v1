@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Add Quiz {% endblock title %}
+{% block title %} Update Quiz {% endblock title %}
 
 {% block body %}
 
@@ -12,22 +12,22 @@
                     <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
                     <div class="card border-1 shadow">
                         <div class="card-body">
-                            <form action="/add_quiz" method="GET">
-                                <h2 class="mb-4 text-center">Add new Quiz</h2>
+                            <form action="/quiz/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}/edit" method="GET">
+                                <h2 class="mb-4 text-center">Update Quiz</h2>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="chapter_id" name="chapter_id" placeholder="Enter Chapter ID here" required>
+                                    <input type="text" class="form-control" id="chapter_id" name="chapter_id" placeholder="Enter Chapter ID here" value="{{chapter_id}}" readonly disabled>
                                     <label for="chapter_id">Chapter ID</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="quiz_date" name="quiz_date" placeholder="Enter Date here" required>
+                                    <input type="date" class="form-control" id="quiz_date" name="quiz_date" placeholder="Enter Date here" value="{{quiz.quiz_date}}" required>
                                     <label for="quiz_date">Quiz Date</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="quiz_time_duration" name="quiz_time_duration" placeholder="Enter duration in minutes" required>
+                                    <input type="number" class="form-control" id="quiz_time_duration" name="quiz_time_duration" value="{{quiz.quiz_time_duration}}" placeholder="Enter duration in minutes" required>
                                     <label for="quiz_time_duration">Quiz Duration (in minutes)</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="quiz_remarks" name="quiz_remarks" placeholder="Enter duration in minutes" required>
+                                    <input type="text" class="form-control" id="quiz_remarks" name="quiz_remarks" value="{{quiz.quiz_remarks}}" placeholder="Enter duration in minutes" required>
                                     <label for="quiz_remarks">Enter Quiz Remarks</label>
                                 </div>
                                 <div class="text-center">

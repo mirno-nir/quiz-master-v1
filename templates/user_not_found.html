@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Incorrect Credentials {% endblock title %}
+
+{% block body %}
+    <container>
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-12 col-md-6 m-auto">
+                    <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
+                    <div class="card border-1 shadow">
+                        <div class="card-body">
+                            <h3 class="mb-5 mt-3 pt-3 text-center text-danger">You have entered incorrect email or password !!</h3>
+                            <div class="text-center"><strong><a href="/login">Login again</a></strong></div>
+                        </div>
+                    </div>                        
+                </div>
+            </div>                
+        </div>
+    </container>
+
+
+{% endblock body %}

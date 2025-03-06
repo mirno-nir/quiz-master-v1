@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} New Question {% endblock title %}
+
+{% block body %}
+
+<section>
+    <container>
+        <div class="container mt-5 pt-5 pb-4 mb-5">
+            <div class="row">
+                <div class="col-12 col-md-8 m-auto">
+                    <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
+                    <div class="card border-1 shadow">
+                        <div class="card-body">
+                            <form action="/add_question/{{chapter_id}}/{{quiz_id}}" method="GET">
+                                <h2 class="mb-4 text-center">Add New Question</h2>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="quiz_id" name="quiz_id" value="{{quiz_id}}" readonly disabled>
+                                    <label for="quiz_id">Quiz ID</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="chapter_id" name="chapter_id" value="{{chapter_id}}" readonly disabled>
+                                    <label for="chapter_id">Chapter ID</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="chapter_name" name="chapter_name" value="{{chapter_name}}" readonly disabled>
+                                    <label for="chapter_name">Quiz Name (Chapter)</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="question_title" name="question_title" placeholder="Enter Question Title here" required>
+                                    <label for="question_title">Question Title</label>
+                                </div>
+                                <div class="card border-1 card-body mb-3">
+                                    <div class="form-floating mb-1">
+                                        <textarea class="form-control" placeholder="Enter Subject descripttion here" id="question_statement" name="question_statement" style="height: 100px" required></textarea>
+                                        <label for="question_statement">Question Statement</label>
+                                    </div>
+                                    <div class="card-body mt-2">
+                                        <h6 class="mb-4">Enter Single Correct Options:</h6>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="op_1" name="op_1" placeholder="Option (1)" required>
+                                            <label for="op_1">Option (1)</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="op_2" name="op_2" placeholder="Option (2)" required>
+                                            <label for="op_2">Option (2)</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="op_3" name="op_3" placeholder="Option (3)" required>
+                                            <label for="op_3">Option (3)</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="op_4" name="op_4" placeholder="Option (4)" required>
+                                            <label for="op_4">Option (4)</label>
+                                        </div>
+                                        <div class="form-floating mt-5 mb-3 text-success">
+                                            <input type="text" class="form-control" id="correct_op" name="correct_option" placeholder="Correct option:" required>
+                                            <label for="correct_op">Correct option:</label>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-lg btn-danger mt-3 rounded-5" onclick="window.location.href='/quiz_mgmt'">Cancel</button>
+                                    <button type="submit" class="btn btn-lg btn-primary mt-3 rounded-5" formmethod="POST">Save & next</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>                
+        </div>
+    </container>
+</section>
+
+
+{% endblock body %}

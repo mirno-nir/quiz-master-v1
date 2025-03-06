@@ -10,91 +10,53 @@
     <section class="pb-4">
         <div class="container mt-2 pt-2">
             <div class="container text-center">
-                <!-- first row of card starts here -->
                 <div class="row mt-3">
+                  {% for quiz in quizzes %}
                     <div class="col">
                         <div class="card border-1 shadow">
                             <div class="card-body">
-                                <h3 class="center pb-2">Quiz-1 (CSS)</h3>
+                              <h3 class="pb-2">{{ quiz.chapter.chapter_name }}</h3>
+                              <a href="/quiz/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}/edit" class="btn btn-outline-success btn-sm rounded-5 position-absolute top-0 start-0">
+                                <i class="bi bi-pencil-square"></i>
+                              </a>
+                              <a href="/quiz/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}/delete" class="btn btn-outline-danger btn-sm rounded-5 position-absolute top-0 end-0">
+                                <i class="bi bi-trash3-fill"></i>
+                              </a>
+                              <div>
+                                <h6 class="text-success">Quiz Date: {{ quiz.quiz_date }}</h6>
                                 <table class="table">
                                     <thead>
                                       <tr>
-                                        <th scope="col">ID</th>
+                                        <th scope="col">#</th>
                                         <th scope="col">Question Title</th>
                                         <th scope="col">Action</th>
                                       </tr>
                                     </thead>
                                     <tbody>
+                                      {% for question in quiz.questions %}
                                       <tr>
-                                        <th scope="row">1</th>
-                                        <td>Classes</td>
+                                        <th scope="row">{{loop.index}}</th>
+                                        <td>{{question.question_title}}</td>
                                         <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
+                                            <a href="/question/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}/{{question.question_id}}/edit">Edit</a>
+                                            <a href="/question/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}/{{question.question_id}}/delete">Delete</a>
                                         </td>
                                       </tr>
-                                      <tr>
-                                        <th scope="row">2</th>
-                                        <td>Internal Styles</td>
-                                        <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
-                                        </td>
-                                      </tr>
+                                      {% endfor %}
                                     </tbody>
                                   </table>
-                                  <form action="/new_question" method="GET">
-                                    <button class="btn btn-info"><strong>+ Add Question</strong></button>
-                                  </form>
+                                    <a href="/add_question/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}" class="btn btn-info rounded-5"><strong>+ Add Question</strong></a>
+                              </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card border-1 shadow">
-                            <div class="card-body">
-                                <h3 class="center pb-2">Quiz-1 (CSS)</h3>
-                                <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Question Title</th>
-                                        <th scope="col">Action</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <th scope="row">1</th>
-                                        <td>Classes</td>
-                                        <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">2</th>
-                                        <td>Internal Styles</td>
-                                        <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                  <form action="/new_question" method="GET">
-                                    <button class="btn btn-info"><strong>+ Add Question</strong></button>
-                                  </form>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
-                <!-- first row of card ends here  -->  
             </div>
         </div>
     </section>
     <div class="container text-center">
-        <form action="/add_quiz" method="GET">
-            <button class="btn btn-success btn-lg" type="submit" value="submit"><strong>+ Add Quiz</strong></button>
-        </form>
+      <a href="/add_quiz" class="btn btn-success btn-lg rounded-5"><strong>+ Add Quiz</strong></a>
     </div>
 
     

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} Update Chapter {% endblock title %}
+
+{% block body %}
+
+<section>
+    <container>
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-12 col-md-6 m-auto">
+                    <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
+                    <div class="card border-1 shadow">
+                        <div class="card-body">
+                            <form action="/chapter/{{subject.subject_id}}/{{chapter.chapter_id}}/edit" method="POST">
+                                <h2 class="mb-4 text-center">Update Chapter</h2>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="subject" name="subject_id" value="{{chapter.subject_id}}" placeholder="Subject Name" readonly disabled>
+                                    <label for="subject">Subject ID</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="subject" name="subject_name" value="{{subject.subject_name}}" placeholder="Subject Name" readonly disabled>
+                                    <label for="subject">Subject name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="chapter_name" id="chapter_name" value="{{chapter.chapter_name}}" placeholder="Enter Chapter name here" required>
+                                    <label for="chapter_name">Chapter Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" name="chapter_desc" id="chapter_desc"  placeholder="Enter Chapter descripttion here" style="height: 100px">{{chapter.chapter_description}}</textarea>
+                                    <label for="chapter_desc">Chapter Description</label>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-lg btn-danger mt-3" onclick="window.location.href='/admin_dashboard'">Cancel</button>
+                                    <button type="submit" class="btn btn-lg btn-primary mt-3">Save</button>    
+                                </div>
+                            </form>
+                        </div>
+                    </div>                        
+                </div>
+            </div>                
+        </div>
+    </container>
+</section>
+
+{% endblock body %}

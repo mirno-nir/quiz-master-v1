@@ -10,96 +10,62 @@
     <section class="pb-4">
         <div class="container mt-2 pt-2">
             <div class="container text-center">
-                <!-- first row of card starts here -->
                 <div class="row mt-3">
+                  {% for sub in subject %}
                     <div class="col">
                         <div class="card border-1 shadow">
                             <div class="card-body">
-                                <h3 class="center pb-2">Physics</h3>
+                              <h3 class="center pb-2"> {{sub.subject_name}} </h3>
+                              <a href="subject/{{sub.subject_id}}/edit" class="btn btn-outline-success btn-sm rounded-5 position-absolute top-0 start-0">
+                                <i class="bi bi-pencil-square"></i>
+                              </a>
+                              <a href="subject/{{sub.subject_id}}/delete" class="btn btn-outline-danger btn-sm rounded-5 position-absolute top-0 end-0">
+                                <i class="bi bi-trash3-fill"></i>
+                              </a>
                                 <table class="table">
                                     <thead>
                                       <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">Chapter Id</th>
                                         <th scope="col">Chapter Name</th>
                                         <th scope="col">No. of Questions</th>
                                         <th scope="col">Action</th>
                                       </tr>
                                     </thead>
                                     <tbody>
+
+                                      {% for chap in chapter %}
+                                      
+                                      {% if chap.subject_id == sub.subject_id %}
+
                                       <tr>
-                                        <th scope="row">1</th>
-                                        <td>Force</td>
-                                        <td>10</td>
+                                        <th scope="row">{{chap.chapter_id}}</th>
+                                        <td>{{chap.chapter_name}}</td>
+                                        <td>{{chap.questions_chapter|length}}</td>
                                         <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
+                                            <a href="chapter/{{sub.subject_id}}/{{chap.chapter_id}}/edit">Edit</a>
+                                            <a href="chapter/{{sub.subject_id}}/{{chap.chapter_id}}/delete">Delete</a>
                                         </td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">2</th>
-                                        <td>EMF</td>
-                                        <td>12</td>
-                                        <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
-                                        </td>
-                                      </tr>
+
+                                      {% endif %}
+                                      
+                                      {% endfor %}
+
                                     </tbody>
-                                  </table>
-                                  <form action="/new_chapter" method="GET">
-                                    <button class="btn btn-info"><strong>+ Add Chapter</strong></button>
-                                  </form>
+                                </table>
+                                <a href="/add_chapter/{{sub.subject_id}}" class="btn btn-info rounded-5" ><strong>+ Add Chapter</strong></a>
+                              </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card border-1 shadow">
-                            <div class="card-body">
-                                <h3 class="center pb-2">App Dev-I</h3>
-                                <table class="table ">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Chapter Name</th>
-                                        <th scope="col">No. of Questions</th>
-                                        <th scope="col">Action</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <th scope="row">1</th>
-                                        <td>HTML</td>
-                                        <td>10</td>
-                                        <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">2</th>
-                                        <td>CSS</td>
-                                        <td>12</td>
-                                        <td>
-                                            <a href="chapter/edit">Edit</a>
-                                            <a href="chapter/delete">Delete</a>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                  <form action="/new_chapter" method="GET">
-                                    <button class="btn btn-info"><strong>+ Add Chapter</strong></button>
-                                  </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- first row of card ends here  -->  
+                          </div>
+
+                  {% endfor %}
+                  
+                </div>  
             </div>
         </div>
     </section>
-    <div class="container text-center">
-        <form action="/new_subject" method="GET">
-            <button class="btn btn-success btn-lg" type="submit" value="submit"><strong>+ Add Subject</strong></button>
+    <div class="container text-center mb-5">
+        <form action="/add_subject" method="GET">
+            <button class="btn btn-success btn-lg rounded-5" type="submit" value="submit"><strong>+ Add Subject</strong></button>
         </form>
     </div>
 

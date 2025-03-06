@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<section>
+
     <container>
         <div class="container mt-5 pt-5">
             <div class="row">
@@ -12,19 +12,19 @@
                     <h1 class="mb-5 text-center"><strong>Welcome to Quiz Master</strong></h1>
                     <div class="card border-1 shadow">
                         <div class="card-body">
-                            <form action="/admin_dashboard" method="GET">
+                            <form action="/add_subject" method="GET">
                                 <h2 class="mb-4 text-center">Add new Subject</h2>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="Enter Subject name here">
-                                    <label for="floatingInput">Subject Name</label>
+                                    <input type="text" class="form-control" id="subject_name" name = "subject_name" placeholder="Enter Subject name here" required>
+                                    <label for="subject_name">Subject Name</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder="Enter Subject descripttion here" id="floatingTextarea2" style="height: 100px"></textarea>
-                                    <label for="floatingTextarea2">Description</label>
+                                    <textarea class="form-control" placeholder="Enter Subject descripttion here" id="subject_desc" name="subject_desc" style="height: 100px"></textarea>
+                                    <label for="subject_desc">Description</label>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-lg btn-danger mt-3">Cancel</button>
-                                    <button type="submit" class="btn btn-lg btn-primary mt-3" formmethod="POST">Save</button>
+                                    <button type="button" class="btn btn-lg btn-danger mt-3" onclick="window.location.href='/admin_dashboard';">Cancel</button>
+                                    <button type="submit" class="btn btn-lg btn-primary mt-3" formmethod="post">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -33,6 +33,6 @@
             </div>                
         </div>
     </container>
-</section>
+
 
 {% endblock body %}

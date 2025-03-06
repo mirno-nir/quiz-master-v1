@@ -1,65 +1,33 @@
 # https://docs.google.com/document/d/e/2PACX-1vQ9bIdyfpUwdevF2bRSPGsFIGKfxaw9tytEyK2bZixrGgPKHMFFajBm8f_MZ7faTfjCdCH0d0_QvDau/pub 
 
-from flask import Flask, render_template
+from flask import Flask
+from application.database import db
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    app.debug = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizmaster.sqlite3'
+    db.init_app(app)
+    app.app_context().push()
+    return app
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    return render_template('login.html')
+app = create_app()
+from application.controllers import *
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    return render_template('register.html')
+def create_admin():
+    admin_exist = User.query.filter_by(email = 'admin@admin.com').first()
+    if not admin_exist:
+        admin_pwd = 'admin'
+        admin_email = 'admin@admin.com'
+        user_record = User(email = admin_email, password = admin_pwd, full_name = 'admin', qualification = 'Diploma', dob = '2000-12-12', type = 'admin')
+        db.session.add(user_record)
+        db.session.commit()
+        print('admin created')
 
-@app.route('/admin_dashboard', methods=['GET', 'POST'])
-def admin_dash():
-    return render_template('admin_dashboard.html')
-
-@app.route('/new_subject', methods=['GET', 'POST'])
-def new_sub():
-    return render_template('new_subject.html')
-
-
-@app.route('/new_chapter', methods=['GET', 'POST'])
-def new_chap():
-    return render_template('new_chapter.html')
-
-
-@app.route('/quiz_mgmt', methods=['GET', 'POST'])
-def quiz_mgmt():
-    return render_template('quiz_mgmt.html')
+with app.app_context():
+    db.create_all()
+    create_admin()
 
 
-@app.route('/add_quiz', methods=['GET', 'POST'])
-def add_quiz():
-    return render_template('add_quiz.html')
-
-@app.route('/new_question', methods=['GET', 'POST'])
-def new_que():
-    return render_template('new_question.html')
-
-@app.route('/summary_admin', methods=['GET', 'POST'])
-def summary_admin():
-    return render_template('summary_admin.html')
-
-@app.route('/user_dashboard', methods=['GET', 'POST'])
-def user_dashboard():
-    return render_template('user_dashboard.html')
-
-@app.route('/scores', methods=['GEt', 'POST'])
-def scores():
-    return render_template('scores.html')
-
-@app.route('/summary_user', methods=['GET', 'POST'])
-def summary_user():
-    return render_template('summary_user.html')
-
-@app.route('/view_quiz', methods=['GET', 'POST'])
-def view_quiz():
-    return render_template('view_quiz.html')
-
-@app.route('/start_quiz', methods=['GET', 'POST'])
-def start_quiz():
-    return render_template('start_quiz.html')
-app.run(debug=True, port=5050)
+if __name__ == '__main__':
+    app.run()
