@@ -6,9 +6,7 @@
     <div class="container mb-5">
         <div class="position-relative">
             <div class="position-absolute top-0 start-0">
-                {% for question in questions %}
-                <h4>Que. {{loop.index}}/{{loop.length}}</h4>
-                {% endfor %}
+                <h4>Que. </h4>
             </div>
             <div class="position-absolute top-0 end-0">
                 <h4>HH:MM</h4>
@@ -20,35 +18,33 @@
             <div class="col-12 col-md-8 m-auto">
                 <div class="card border-1 shadow">
                     <div class="card-body">
-                        <form action="/user/{{user_id}}/quiz/{{quiz_id}}/start" method="GET">
+                        <form action="/user/{{user_id}}/quiz/{{quiz_id}}/question/{{question.question_id}}" method="GET">
                             <h6 class="mt-3">Question Statement:</h6>
-                            {% for question in questions %}
                             <div class="card border-1 card-body mt-4 mb-5">
                                 <p>{{question.question_statement}}</p>
                             </div>
                             <h6 class="mb-4">Options:</h6>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="option" id="option_1">
+                                <input class="form-check-input" type="radio" name="option" id="option_1" value="{{question.option_1}}">
                                 <label class="form-check-label" for="option_1">{{question.option_1}}</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="option" id="option_2">
-                                <label class="form-check-label" for="option_2">{{question.option_1}}</label>
+                                <input class="form-check-input" type="radio" name="option" id="option_2" value="{{question.option_2}}">
+                                <label class="form-check-label" for="option_2">{{question.option_2}}</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="option" id="option_3">
-                                <label class="form-check-label" for="option_3">{{question.option_1}}</label>
+                                <input class="form-check-input" type="radio" name="option" id="option_3" value="{{question.option_3}}">
+                                <label class="form-check-label" for="option_3">{{question.option_3}}</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="option" id="option_4">
-                                <label class="form-check-label" for="option_4">{{question.option_1}}</label>
+                                <input class="form-check-input" type="radio" name="option" id="option_4" value="{{question.option_4}}">
+                                <label class="form-check-label" for="option_4">{{question.option_4}}</label>
                             </div>                            
                             <div class="text-center mt-5">
-                                <button type="submit" class="btn btn-lg btn-warning mt-3 rounded-5 formmethod="POST">Submit</button>
-                                <button type="submit" class="btn btn-lg btn-primary mt-3 rounded-5" formaction="/start_quiz" formmethod="POST">Save & next</button>
+                                <button type="submit" class="btn btn-lg btn-warning mt-3 rounded-5" formaction="/user_dashboard/{{user_id}}" formmethod="POST">Submit</button>
+                                <button type="submit" class="btn btn-lg btn-primary mt-3 rounded-5" formaction="{{url_for('next_quiz_question', user_id = user_id, quiz_id = quiz_id)}}"  formmethod="POST">Save & next</button>
                             </div>
                         </form>
-                        {% endfor %}
                     </div>
                 </div>                        
             </div>

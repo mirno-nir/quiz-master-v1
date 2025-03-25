@@ -11,7 +11,7 @@
             <div class="container text-center">
                 <!-- first row of card starts here -->
                 <div class="row mt-3">
-                    <div class="col-12 col-md-8 m-auto">
+                    <div class="col-12 col-md-10 m-auto">
                         <div class="card border-1 shadow">
                             <div class="card-body">
                                 <table class="table">
@@ -19,24 +19,26 @@
                                     <thead>
                                       <tr>
                                         <th scope="col">#</th>
+                                        <th scope="col">Quiz Id.</th>
+                                        <th scope="col">Quiz Name</th>
                                         <th scope="col">No. of Questions</th>
-                                        <th scope="col">Date</th>
+                                        <th scope="col">Quiz Date</th>
+                                        <th scope="col">Quiz Attempt Timestamp</th>
                                         <th scope="col">Score</th>
                                       </tr>
                                     </thead>
                                     <tbody>
+                                        {% for score in user_score %}
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>10</td>
-                                            <td>10-03-2025</td>
-                                            <td>20/25</td>
+                                            <th scope="row">{{loop.index}}</th>
+                                            <td>{{score.quiz_id}}</td>
+                                            <td>{{score.quiz_score.chapter.chapter_name}}</td>
+                                            <td>{{score.quiz_score.questions | length}}</td>
+                                            <td>{{score.quiz_score.quiz_date}}</td>
+                                            <td>{{score.time_stamp}}</td>
+                                            <td>{{score.total_score}} / {{score.quiz_score.questions | length}}</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>12</td>
-                                            <td>12-03-2025</td>
-                                            <td>29/30</td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>

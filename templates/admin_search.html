@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} Admin Search {% endblock title %}
+
+{% block body %}
+{% include 'admin_navbar.html' %}
+
+<section class="pb-4">
+  <div class="container mt-2 pt-2">
+      <div class="container text-left">
+          <!-- first row of card starts here -->
+           {% if user_result %}
+          <div class="row mt-3">
+              <div class="col-12 col-md-6 m-auto">
+                  <div class="card border-1 shadow">
+                      <div class="card-body">
+                        <h3>Users</h3>
+                          <ul>
+                            {% for user in user_result %}
+                            <li>{{user.full_name}}</li>
+                            {% endfor %}
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+            {% endif %}
+          <!-- first row of card ends here  -->  
+          {% if subject_result %}
+          <div class="row mt-3">
+            <div class="col-12 col-md-6 m-auto">
+                <div class="card border-1 shadow">
+                    <div class="card-body">
+                      <h3>Subjects</h3>
+                        <ul>
+                          {% for subject in subject_result %}
+                          <li>{{subject.subject_name}}</li>
+                          {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- first row of card ends here  -->  
+        {% if quiz_result %}
+        <div class="row mt-3">
+          <div class="col-12 col-md-6 m-auto">
+              <div class="card border-1 shadow">
+                  <div class="card-body">
+                    <h3>Quizzes</h3>
+                      <ul>
+                        {% for quiz in quiz_result %}
+                        <li>{{quiz.chapter.chapter_name}}</li>
+                        {% endfor %}
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      {% endif %}
+      </div>
+  </div>
+</section>
+
+
+
+
+
+  
+
+
+  {% for quiz in quiz_result %}
+
+  {% endfor %}
+{% endblock body %}

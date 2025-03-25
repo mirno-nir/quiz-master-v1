@@ -1,0 +1,8 @@
+Flask
+SQLAlchemy
+flask-sqlalchemy
+Flask-SQLAlchemy
+Flask-Security-Too
+email_validator
+bcrypt
+matplotlib

@@ -7,6 +7,7 @@ def create_app():
     app = Flask(__name__)
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizmaster.sqlite3'
+    app.secret_key = 'secret_key'
     db.init_app(app)
     app.app_context().push()
     return app

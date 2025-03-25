@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 from typing import Optional, List
 from sqlalchemy import Integer, String, ForeignKey, DateTime
 from .database import db
@@ -62,9 +62,18 @@ class Scores(db.Model):
     score_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     quiz_id: Mapped[int] = mapped_column(Integer, ForeignKey(Quiz.quiz_id))
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey(User.user_id))
-    time_stamp_of_attempt: Mapped[str] = mapped_column(DateTime)
-    quiz_time_duration: Mapped[int] = mapped_column(Integer)
+    time_stamp: Mapped[str] = mapped_column(String)
+    quiz_time_duration:Mapped[int] = mapped_column(Integer)
     total_score: Mapped[int] = mapped_column(Integer)
     quiz_score: Mapped['Quiz'] = relationship(back_populates='scores')
     user: Mapped['User'] = relationship(back_populates='user_score')
 
+class User_attempt(db.Model):
+    __tablename__ = 'user_attempt'
+    attempt_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey(User.user_id))
+    quiz_id: Mapped[int] = mapped_column(Integer, ForeignKey(Quiz.quiz_id))
+    question_id: Mapped[int] = mapped_column(Integer, ForeignKey(Question.question_id))
+    chosen_option: Mapped[str] = mapped_column(String)
+    option_result: Mapped[str] = mapped_column(String)
+    time_stamp: Mapped[str] = mapped_column(String)

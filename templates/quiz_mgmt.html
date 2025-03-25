@@ -22,7 +22,7 @@
                               <a href="/quiz/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}/delete" class="btn btn-outline-danger btn-sm rounded-5 position-absolute top-0 end-0">
                                 <i class="bi bi-trash3-fill"></i>
                               </a>
-                              <div>
+                              <div style="max-height:200px;overflow-y: scroll;">
                                 <h6 class="text-success">Quiz Date: {{ quiz.quiz_date }}</h6>
                                 <table class="table">
                                     <thead>
@@ -45,8 +45,8 @@
                                       {% endfor %}
                                     </tbody>
                                   </table>
-                                    <a href="/add_question/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}" class="btn btn-info rounded-5"><strong>+ Add Question</strong></a>
-                              </div>
+                                </div>
+                                <a href="/add_question/{{quiz.chapter.chapter_id}}/{{quiz.quiz_id}}" class="btn btn-info rounded-5"><strong>+ Add Question</strong></a>
                             </div>
                         </div>
                     </div>

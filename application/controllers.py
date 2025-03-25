@@ -1,6 +1,10 @@
 from flask import render_template, request, redirect, session, url_for
 from flask import current_app as app
 from datetime import datetime
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("Agg")
+import calendar
 
 from .models import *
 
@@ -200,7 +204,6 @@ def add_question(chapter_id, quiz_id):
         else:
             return 'Enter a valid correct option from the entered options'
         
-
 @app.route('/question/<int:chapter_id>/<int:quiz_id>/<int:question_id>/edit', methods=['GET', 'POST'])
 def update_question(chapter_id, quiz_id, question_id):
     question = Question.query.filter_by(question_id = question_id).first()
@@ -232,15 +235,16 @@ def delete_question(chapter_id, quiz_id, question_id):
 
 '''FOR USERS'''
 
-@app.route('/user_dashboard/<int:user_id>', methods=['GET'])
+@app.route('/user_dashboard/<int:user_id>', methods=['GET', 'POST'])
 def user_dashboard(user_id):
-    if request.method == 'GET':
-        quizzes = Quiz.query.all()
-        for quiz in quizzes:
-            current_date = datetime.now().date()  #will give current date
-            quiz.is_upcomming = datetime.strptime(quiz.quiz_date, '%Y-%m-%d').date() > current_date     # strptime will convert date-string in to valid time.
-            quiz.is_active = datetime.strptime(quiz.quiz_date, '%Y-%m-%d').date() <= current_date
-        return render_template('user_dashboard.html', quizzes = quizzes, user_id = user_id)
+    user = User.query.filter_by(user_id = user_id).first()
+    user_full_name = user.full_name
+    quizzes = Quiz.query.all()
+    for quiz in quizzes:
+        current_date = datetime.now().date()  #will give current date
+        quiz.is_upcomming = datetime.strptime(quiz.quiz_date, '%Y-%m-%d').date() > current_date     # strptime will convert date-string in to valid time.
+        quiz.is_active = datetime.strptime(quiz.quiz_date, '%Y-%m-%d').date() <= current_date
+    return render_template('user_dashboard.html', quizzes = quizzes, user_id = user_id, user_full_name = user_full_name)
     
 @app.route('/user/<int:user_id>/quiz/<int:quiz_id>/view', methods=['GET'])
 def view_quiz_by_user(user_id, quiz_id):
@@ -249,9 +253,213 @@ def view_quiz_by_user(user_id, quiz_id):
     chapter = Chapter.query.filter_by(chapter_id = chapter_id).first()
     return render_template('view_quiz.html', quiz = quiz, chapter = chapter, user_id = user_id, quiz_id = quiz_id)
 
+# quiz start ############################
+# @app.route('/user/<int:user_id>/quiz/<int:quiz_id>/start', methods=['GET'])
+# def start_quiz(user_id, quiz_id):
+#     first_question = Question.query.filter_by(quiz_id = quiz_id).order_by(Question.question_id.asc()).first()
+#     if first_question:
+#         session['current_question_id'] = first_question.question_id
+#         session['question_attempt_record'] = {}
+#         return redirect(url_for('show_quiz_question', user_id = user_id, quiz_id = quiz_id))
+#     return 'Thre are no questions for this quiz at the moment!'
 
-@app.route('/user/<int:user_id>/quiz/<int:quiz_id>/start', methods=['GET', 'POST'])
-def start_quiz_by_user(user_id, quiz_id):
-    quiz = Quiz.query.filter_by(quiz_id = quiz_id).first()
-    questions = Question.query.filter_by(quiz_id = quiz_id)
-    return render_template('/start_quiz.html', quiz = quiz, questions = questions)
+# @app.route('/user/<int:user_id>/quiz/<int:quiz_id>/question', methods=['GET'])
+# def show_quiz_question(user_id, quiz_id):
+#     question_id = session.get('current_question_id', None)
+#     if question_id is None:
+#         return redirect(url_for('start_quiz', user_id = user_id, quiz_id = quiz_id))
+#     question = Question.query.get_or_404(question_id)
+#     return render_template('start_quiz.html', question = question, quiz_id = quiz_id, user_id = user_id)
+
+# @app.route('/user/<int:user_id>/quiz/<int:quiz_id>/question', methods=['POST'])
+# def next_quiz_question(user_id, quiz_id):
+#     current_question_id = session.get('current_question_id', None)
+#     attempted_question = Question.query.filter_by(question_id = current_question_id).first()
+#     if current_question_id is None:
+#         return redirect(url_for('start_quiz', user_id = user_id, quiz_id = quiz_id))
+#     selected_answer = request.form.get('option')
+#     if attempted_question.correct_option == selected_answer:
+#         question_result = True
+#         print('yes')
+#     else:
+#         question_result = False
+#         print('no')
+#     session['question_attempt_record'][str(current_question_id)] = {}
+#     session['question_attempt_record'][str(current_question_id)]['selected_answer'] = selected_answer
+#     session['question_attempt_record'][str(current_question_id)]['question_result'] = question_result
+#     next_question = Question.query.filter_by(quiz_id = quiz_id).filter(Question.question_id > current_question_id).first()
+#     if next_question:
+#         session['current_question_id'] = next_question.question_id
+#         return redirect(url_for('show_quiz_question', user_id = user_id, quiz_id = quiz_id))
+#     return redirect(url_for('quiz_finished', user_id = user_id, quiz_id = quiz_id))
+
+# @app.route('/user/<int:user_id>/quiz/<int:quiz_id>/quiz_finished')
+# def quiz_finished(user_id, quiz_id):
+#     time_stamp = datetime.now()
+#     score = 0
+#     print(session['question_attempt_record'])
+#     for question in session['question_attempt_record']:
+#         score += int(session['question_attempt_record'][question]['question_result'])
+#         user_attempt_record = User_attempt(user_id = user_id, quiz_id = quiz_id, question_id = question, chosen_option = session['question_attempt_record'][question]['selected_answer'], option_result = session['question_attempt_record'][question]['question_result'], time_stamp = time_stamp)
+#         db.session.add(user_attempt_record)
+#         db.session.commit()
+#         db.session.close()
+#         print(question)
+#     scores_record = Scores(user_id = user_id, quiz_id = quiz_id, time_stamp = time_stamp, quiz_time_duration = score, total_score = score)
+#     db.session.add(scores_record)
+#     db.session.commit()
+#     db.session.close()
+#     return redirect(url_for('user_dashboard', user_id = user_id))
+
+
+@app.route('/user/<int:user_id>/quiz/<int:quiz_id>/start', methods=['GET'])
+def start_quiz(user_id, quiz_id):
+    first_question = Question.query.filter_by(quiz_id = quiz_id).order_by(Question.question_id.asc()).first()
+    if first_question:
+        session['current_question_id'] = first_question.question_id
+        session['answers'] = {}
+        return redirect(url_for('show_quiz_question', user_id = user_id, quiz_id = quiz_id))
+    return 'There are no questions in this quiz at the moment.'
+
+@app.route('/user/<int:user_id>/quiz/<int:quiz_id>/question', methods=['GET', 'POST'])
+def show_quiz_question(user_id, quiz_id):
+    question_id = session.get('current_question_id', None)
+    if question_id is None:
+        return redirect(url_for('start_quiz', user_id = user_id, quiz_id = quiz_id))
+    
+    question = Question.query.get_or_404(question_id)
+    return render_template('start_quiz.html', question = question, user_id = user_id, quiz_id = quiz_id)
+
+@app.route('/user/<int:user_id>/quiz/<int:quiz_id>/next', methods=['POST'])
+def next_quiz_question(user_id, quiz_id):
+    current_question_id = session.get('current_question_id', None)
+    attempted_question = Question.query.filter_by(question_id = current_question_id).first()
+    if current_question_id is None:
+        return redirect(url_for('start_quiz'), user_id = user_id, quiz_id = quiz_id)
+    
+    answer_selected = request.form.get('option')
+    if answer_selected:
+        session['answer_selected'] = answer_selected
+        if attempted_question.correct_option == answer_selected:
+            option_result = True
+        else:
+            option_result = False
+        
+        session['answers'][str(current_question_id)] = [answer_selected, option_result]
+
+    next_question = Question.query.filter_by(quiz_id = quiz_id).filter(Question.question_id > current_question_id).first()
+    if next_question:
+        session['current_question_id'] = next_question.question_id
+        return redirect(url_for('show_quiz_question', user_id = user_id, quiz_id = quiz_id))
+    
+    return redirect(url_for('quiz_finished', user_id = user_id, quiz_id = quiz_id))
+
+@app.route('/user/<int:user_id>/quiz/<int:quiz_id>/quiz_finished')
+def quiz_finished(user_id, quiz_id):
+    time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    score = 0
+    for question in session['answers']:
+        score += int(session['answers'][question][1])
+        user_attempt_record = User_attempt(user_id = user_id, quiz_id = quiz_id, question_id = question, chosen_option = session['answers'][question][0], option_result = session['answers'][question][1], time_stamp = time_stamp)
+        db.session.add(user_attempt_record)
+        db.session.commit()
+        db.session.close()
+    scores_record = Scores(user_id = user_id, quiz_id = quiz_id, time_stamp = time_stamp, quiz_time_duration = score, total_score = score)
+    db.session.add(scores_record)
+    db.session.commit()
+    db.session.close()
+    return redirect(url_for('user_dashboard', user_id = user_id))
+#############################################
+
+@app.route('/user/<int:user_id>/scores', methods=['GET'])
+def scores(user_id):
+    user = User.query.filter_by(user_id = user_id).first()
+    user_full_name = user.full_name
+    user_score = Scores.query.filter_by(user_id = user_id).all()
+    return render_template('scores.html', user_id = user_id, user_full_name = user_full_name, user_score = user_score)
+
+@app.route('/user/<int:user_id>/summary', methods=['GET'])
+def user_summary(user_id):
+    user = User.query.filter_by(user_id = user_id).first()
+    user_full_name = user.full_name
+    user_scores = Scores.query.filter_by(user_id = user_id).all()
+    
+    user_attempts_for_subject = {} # it will store {subject1: 'no. of attempts', subject2: 'no. of attempts'} by a user
+    user_attempts_in_month = {} # it will store {month1: 'no. of attempts', month2: 'no. of attempts'} by a user
+    for attempt in user_scores:
+        if attempt.quiz_score.chapter.subject.subject_name in user_attempts_for_subject:
+            user_attempts_for_subject[attempt.quiz_score.chapter.subject.subject_name] +=1
+        else:
+            user_attempts_for_subject[attempt.quiz_score.chapter.subject.subject_name] =1
+        time_stamp = datetime.strptime(attempt.time_stamp, '%Y-%m-%d %H:%M:%S')
+        month_num = int(time_stamp.month)
+        month = calendar.month_name[month_num]
+        if month in user_attempts_in_month:
+            user_attempts_in_month[month] += 1
+        else:
+            user_attempts_in_month[month] = 1
+
+    subjects = list(user_attempts_for_subject.keys())
+    number_of_attempts_in_subject = list(user_attempts_for_subject.values())
+    plt.bar(subjects, number_of_attempts_in_subject)
+    plt.xlabel('Subjects Appeared')
+    plt.ylabel('Number of Attempts in a Subject')
+    plt.title('Subjectwise number of quizzes attempted')
+    plt.savefig('static/bar.png')
+    plt.clf()
+
+    months = list(user_attempts_in_month.keys())
+    number_of_attempts_in_month = list(user_attempts_in_month.values())
+    print(number_of_attempts_in_month)
+    plt.pie(number_of_attempts_in_month, labels=months, autopct = "%1.1f%%")
+    plt.title('Monthwise number of quiz attempted')
+    plt.savefig('static/pie.png')
+    plt.clf()
+    return render_template('summary_user.html', user_id = user_id, user_full_name = user_full_name)
+
+@app.route('/summary_admin', methods=['GET'])
+def summary_admin():
+    quiz_score = Scores.query.all()
+    subjects_with_max_score = {}
+    subject_wise_user_attempts = {}
+    for score in quiz_score:
+        if score.quiz_score.chapter.subject.subject_name in subjects_with_max_score:
+            if subjects_with_max_score[score.quiz_score.chapter.subject.subject_name] < score.total_score:
+                subjects_with_max_score[score.quiz_score.chapter.subject.subject_name] = score.total_score
+        else:
+            subjects_with_max_score[score.quiz_score.chapter.subject.subject_name] = score.total_score
+
+        if score.quiz_score.chapter.subject.subject_name in subject_wise_user_attempts:
+            subject_wise_user_attempts[score.quiz_score.chapter.subject.subject_name] += 1
+        else:
+            subject_wise_user_attempts[score.quiz_score.chapter.subject.subject_name] = 1
+    subjects_in_max = list(subjects_with_max_score.keys())
+    max_score = list(subjects_with_max_score.values())
+    plt.bar(subjects_in_max, max_score)
+    plt.xlabel('Subjects')
+    plt.ylabel('Maximum marks')
+    plt.title('Subjectwise maximum Marks')
+    plt.savefig('static/bar1.png')
+    plt.clf()
+
+    subjects_in_attempt = list(subject_wise_user_attempts.keys())
+    number_of_attempts = list(subject_wise_user_attempts.values())
+    plt.pie(number_of_attempts, labels=subjects_in_attempt, autopct='%1.1f%%')
+    plt.savefig('static/pie1.png')
+    plt.clf()
+    return render_template('summary_admin.html')
+
+@app.route('/admin_search', methods=['POST'])
+def admin_search():
+    arg = request.form.get('search').strip()
+    return redirect(url_for('search_results', arg = arg))
+
+@app.route('/admin_search/<string:arg>', methods=['GET'])
+def search_results(arg):
+    user_result = User.query.filter(User.full_name.like(f'%{str(arg)}%')).all()
+    subject_result = Subject.query.filter(Subject.subject_name.like(f'%{str(arg)}%')).all()
+    quiz_result = Quiz.query.filter(Chapter.chapter_name.like(f'%{str(arg)}%')).all()
+    if not user_result and not subject_result and not quiz_result:
+        return 'Please enter valid search input!'
+    return render_template('admin_search.html', user_result = user_result, subject_result = subject_result, quiz_result = quiz_result)
+
