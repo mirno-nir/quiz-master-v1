@@ -142,7 +142,8 @@ def quiz_management():
 def add_quiz():
     try:
         if request.method == 'GET':
-            return render_template('/add_quiz.html')
+            chapters = Chapter.query.all()
+            return render_template('/add_quiz.html', chapters = chapters)
         if request.method == 'POST':
             chapter_id = request.form.get('chapter_id')
             chapter_exist = Chapter.query.filter_by(chapter_id = chapter_id).first()

@@ -14,9 +14,13 @@
                         <div class="card-body">
                             <form action="/add_quiz" method="GET">
                                 <h2 class="mb-4 text-center">Add new Quiz</h2>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="chapter_id" name="chapter_id" placeholder="Enter Chapter ID here" required>
-                                    <label for="chapter_id">Chapter ID</label>
+                                <div class="mb-3">
+                                    <select class="form-select" name="chapter_id" aria-label="Default select example" required>
+                                        <option selected disabled>Select Chapter</option>
+                                        {% for chapter in chapters %}
+                                        <option value="{{chapter.chapter_id}}" >{{chapter.chapter_name}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input type="date" class="form-control" id="quiz_date" name="quiz_date" placeholder="Enter Date here" required>
