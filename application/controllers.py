@@ -458,7 +458,7 @@ def admin_search():
 def search_results(arg):
     user_result = User.query.filter(User.full_name.like(f'%{str(arg)}%')).all()
     subject_result = Subject.query.filter(Subject.subject_name.like(f'%{str(arg)}%')).all()
-    quiz_result = Quiz.query.filter(Chapter.chapter_name.like(f'%{str(arg)}%')).all()
+    quiz_result = db.session.query(Quiz).filter(Quiz.chapter.has(Chapter.chapter_name.like(f'%{str(arg)}%'))).all()
     if not user_result and not subject_result and not quiz_result:
         return 'Please enter valid search input!'
     return render_template('admin_search.html', user_result = user_result, subject_result = subject_result, quiz_result = quiz_result)
